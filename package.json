@@ -1,5 +1,5 @@
 {
-  "name": "sendnft",
+  "name": "createtoken",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

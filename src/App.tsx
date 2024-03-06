@@ -23,10 +23,10 @@ export const App = () => {
   const [tx, setTx] = useState('...');
 
   useEffect(() => {
-    send_token();
+    create_token();
   }, []);
 
-  async function send_token(): Promise<void> { 
+  async function create_token(): Promise<void> { 
     connected = await window.ergoConnector.nautilus.connect(); 
     if (connected) {
       const height = await ergo.get_current_height();
@@ -36,11 +36,12 @@ export const App = () => {
           new OutputBuilder(
             "1000000", "9gBYZrMRNX66uN5VhLnTw6absspsarXPxcWSi5fuE5EesBfQC6s"
           )
-          .addTokens({ 
-            tokenId: 
-              "bb010d9816e8371b6d3889eb2afeecfd8d79c391aa2ed2ff908774a9f3e32c2d",
-            amount: "1", 
-          }) 
+          .mintToken({ 
+            amount: "1000000",
+            name: "Token Test ErgoTutorials",
+            decimals: 0,
+            description: "Tokens created for the Fleet tutorial" 
+          })
         )
         .sendChangeTo(await ergo.get_change_address())
         .payMinFee()
@@ -55,7 +56,7 @@ export const App = () => {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
+        <Grid p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           <Text as='mark'>
             tx ID: {tx}
