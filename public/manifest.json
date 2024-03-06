@@ -1,6 +1,6 @@
 {
-  "short_name": "Send nft with Fleet SDK",
-  "name": "Send nft with Fleet SDK",
+  "short_name": "Burn tokens with Fleet SDK",
+  "name": "Burn tokens with Fleet SDK",
   "icons": [
     {
       "src": "favicon.ico",

@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 
-import { OutputBuilder, TransactionBuilder } from "@fleet-sdk/core";
+import { TransactionBuilder } from "@fleet-sdk/core";
 
 declare global {
   interface Window {
@@ -23,30 +23,26 @@ export const App = () => {
   const [tx, setTx] = useState('...');
 
   useEffect(() => {
-    create_token();
+    // burn_tokens();
   }, []);
 
-  async function create_token(): Promise<void> { 
+  async function burn_tokens(): Promise<void> { 
     connected = await window.ergoConnector.nautilus.connect(); 
     if (connected) {
       const height = await ergo.get_current_height();
       const unsignedTx = new TransactionBuilder(height)
+
+        .burnTokens({ 
+          tokenId: "066c87b7ce7e05ee72ce6f964122661c7d778f8cf6ada194cc023bf5f976ab5c", 
+          amount: "12"
+        })
+
         .from(await ergo.get_utxos())
-        .to(
-          new OutputBuilder(
-            "1000000", "9gBYZrMRNX66uN5VhLnTw6absspsarXPxcWSi5fuE5EesBfQC6s"
-          )
-          .mintToken({ 
-            amount: "1000000",
-            name: "Token Test ErgoTutorials",
-            decimals: 0,
-            description: "Tokens created for the Fleet tutorial" 
-          })
-        )
         .sendChangeTo(await ergo.get_change_address())
         .payMinFee()
         .build()
         .toEIP12Object();
+        
       const signedTx = await ergo.sign_tx(unsignedTx);
       const txId = await ergo.submit_tx(signedTx);
       setTx(txId);

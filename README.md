@@ -1,7 +1,7 @@
 This application has been created with Chakra-ui using Create React App and Fleet SDK.
 
 
-We will create an token using Fleet-sdk
+We will burn tokens using Fleet-sdk
 https://fleet-sdk.github.io/docs/
 https://github.com/fleet-sdk
 
