@@ -23,7 +23,7 @@ export const App = () => {
   const [tx, setTx] = useState('...');
 
   useEffect(() => {
-    // burn_tokens();
+    burn_tokens();
   }, []);
 
   async function burn_tokens(): Promise<void> { 
@@ -42,7 +42,7 @@ export const App = () => {
         .payMinFee()
         .build()
         .toEIP12Object();
-        
+
       const signedTx = await ergo.sign_tx(unsignedTx);
       const txId = await ergo.submit_tx(signedTx);
       setTx(txId);
